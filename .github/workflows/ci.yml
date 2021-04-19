@@ -1,0 +1,27 @@
+name: branch
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  formit-api-plan:
+    name: Plan formit-api
+    runs-on: ghcr.io/formit-io/terraform
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: "eu-west-1"
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO_OWNER: ${{ github.repository_owner }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Plan
+        run: ./scripts/plan -r "formit-api" -o "$REPO_OWNER" -e "aws@formit.io"
