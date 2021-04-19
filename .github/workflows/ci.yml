@@ -24,6 +24,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Plan
-        run: ls -la
+      - run: ls -la
+      - run: ls . -la
+      - run: ls scripts -la
+      - run: ls ./scripts -la
