@@ -26,4 +26,4 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Plan
-        run: ./scripts/plan -r "formit-api" -o "$REPO_OWNER" -e "aws@formit.io"
+        run: ls -la
