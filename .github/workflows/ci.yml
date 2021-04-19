@@ -18,7 +18,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: "eu-west-1"
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         REPO_OWNER: ${{ github.repository_owner }}
     steps:
       -
