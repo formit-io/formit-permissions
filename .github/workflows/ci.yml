@@ -29,3 +29,23 @@ jobs:
         with:
           name: plan
           path: .out/*.tfplan
+  apply:
+    name: Apply
+    needs: plan
+    strategy:
+      matrix:
+        repo_name: [formit-api, formit-forms]
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/formit-io/terraform:latest
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: "eu-west-1"
+        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: plan
+      - run: ./scripts/apply.sh -r ${{ matrix.repo_name }} -o ${{ github.repository_owner }} -e "aws@formit.io"
