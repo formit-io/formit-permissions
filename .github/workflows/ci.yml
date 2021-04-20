@@ -8,8 +8,11 @@ on:
       - 'master'
 
 jobs:
-  formit-api-plan:
-    name: Plan formit-api
+  plan:
+    name: Plan
+    strategy:
+      matrix:
+        repo_name: [formit-api, formit-forms]
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/formit-io/terraform:latest
@@ -19,11 +22,10 @@ jobs:
         AWS_DEFAULT_REGION: "eu-west-1"
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        REPO_OWNER: ${{ github.repository_owner }}
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Plan
-        run: ./scripts/plan.sh -r "formit-api" -o "$REPO_OWNER" -e "aws@formit.io"
+      - uses: actions/checkout@v2name
+      - run: ./scripts/plan.sh -r ${{ matrix.repo_name }} -o ${{ github.repository_owner }} -e "aws@formit.io"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: plan
+          path: .out/*.tfplan
