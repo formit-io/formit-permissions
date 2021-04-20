@@ -23,7 +23,7 @@ jobs:
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-      - uses: actions/checkout@v2name
+      - uses: actions/checkout@v2
       - run: ./scripts/plan.sh -r ${{ matrix.repo_name }} -o ${{ github.repository_owner }} -e "aws@formit.io"
       - uses: actions/upload-artifact@v2
         with:
