@@ -45,6 +45,7 @@ jobs:
         AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: plan
