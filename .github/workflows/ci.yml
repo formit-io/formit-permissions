@@ -49,4 +49,5 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: plan
+          path: .out
       - run: ./scripts/apply.sh -r ${{ matrix.repo_name }} -o ${{ github.repository_owner }} -e "aws@formit.io"
