@@ -1,6 +1,6 @@
 resource "github_repository" "repo" {
   name = var.repo_name
-  has_issues = true
+  has_issues = false
   visibility = "public"
   allow_merge_commit = false
   allow_rebase_merge = false
